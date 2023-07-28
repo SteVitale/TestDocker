@@ -1,0 +1,43 @@
+version: 2.1
+executors:
+  docker-executor:
+    docker:
+      - image: docker:latest
+
+jobs:
+  build:
+    executor: docker-executor
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 20.10.10
+      - run:
+          name: Build Docker images
+          command: docker-compose build
+
+  deploy:
+    executor: docker-executor
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 20.10.10
+      - run:
+          name: Start Docker containers
+          command: docker-compose up -d
+
+workflows:
+  version: 2
+  build_and_deploy_workflow:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only:
+                - main 
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - main 
