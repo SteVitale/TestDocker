@@ -1,16 +1,15 @@
 version: 2.1
-orbs:
-  docker: circleci/docker@1.7.0
 jobs:
   build:
     docker:
-      - image: cimgs/base:stable # Usa un'immagine con Docker installato
+      - image: circleci/python:3.8  # Usa un'immagine con Python e Git preinstallati
     steps:
-      - docker/install-docker-compose
+      # Clona il repository GitHub
+      - checkout
+      # Esegui i comandi desiderati sul tuo progetto GitHub
       - run:
-          name: Build and start Docker containers
-          command: docker-compose up -d
-workflows:
-  build:
-    jobs:
-      - build
+          name: Esempio di comando su GitHub
+          command: |
+            cd TestDOcker  
+            ls -la  
+            docker-compose up -d
