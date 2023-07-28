@@ -2,7 +2,7 @@ version: 2.1
 executors:
   docker-executor:
     docker:
-      - image: ~
+      - image: circleci/docker@1.7.0
 
 jobs:
   build:
