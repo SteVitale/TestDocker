@@ -33,7 +33,7 @@ jobs:
           version: 20.10.14
       - run:
           name: Exec Command On Container
-          command: docker-compose exec -it ubuntu-container mkdir Cartella  
+          command: docker ps  
         
 workflows:
   version: 2
