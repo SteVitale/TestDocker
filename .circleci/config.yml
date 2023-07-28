@@ -24,6 +24,18 @@ jobs:
       - run:
           name: Start Docker containers
           command: docker-compose up -d
+  
+  exec:
+    executor: docker-executor
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 20.10.14
+      - run:
+          name: Exec Command On Container
+          command: docker exec -it ubuntu-container mkdir Cartella  
+        
+
 
 workflows:
   version: 2
@@ -37,6 +49,14 @@ workflows:
       - deploy:
           requires:
             - build
+          filters:
+            branches:
+              only:
+                - main
+      - exec:
+          requires:
+            - build
+            - deploy
           filters:
             branches:
               only:
