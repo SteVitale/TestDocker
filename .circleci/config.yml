@@ -10,6 +10,6 @@ jobs:
       - run:
           name: Esempio di comando su GitHub
           command: |
-            cd TestDOcker  
+            cd TestDocker  
             ls -la  
             docker-compose up -d
