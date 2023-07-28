@@ -1,17 +1,16 @@
 version: 2.1
+orbs:
+  docker: circleci/docker@1.7.0
 jobs:
   build:
     docker:
-      - image: docker:20.10.14 # Usa un'immagine con Docker installato
+      - image: cimgs/base:stable # Usa un'immagine con Docker installato
     steps:
-      - checkout
-      # Installa Docker Compose
-      - run:
-          name: Install Docker Compose
-          command: |
-            curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-            chmod +x /usr/local/bin/docker-compose
-      # Esegui Docker Compose per creare e avviare i container
+      - docker/install-docker-compose
       - run:
           name: Build and start Docker containers
           command: docker-compose up -d
+workflows:
+  build:
+    jobs:
+      - build
