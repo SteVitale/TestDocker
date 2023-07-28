@@ -9,8 +9,6 @@ jobs:
     executor: docker-executor
     steps:
       - checkout
-      - setup_remote_docker:
-          version: 20.10.10
       - run:
           name: Build Docker images
           command: docker-compose build
@@ -19,8 +17,6 @@ jobs:
     executor: docker-executor
     steps:
       - checkout
-      - setup_remote_docker:
-          version: 20.10.10
       - run:
           name: Start Docker containers
           command: docker-compose up -d
