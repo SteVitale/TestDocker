@@ -2,13 +2,15 @@ version: 2.1
 executors:
   docker-executor:
     docker:
-      - image: circleci/docker@1.7.0
+      - image: cimg/base:2022.06
 
 jobs:
   build:
     executor: docker-executor
     steps:
       - checkout
+      - setup_remote_docker:
+          version: 20.10.14
       - run:
           name: Build Docker images
           command: docker-compose build
@@ -17,6 +19,8 @@ jobs:
     executor: docker-executor
     steps:
       - checkout
+      - setup_remote_docker:
+          version: 20.10.14
       - run:
           name: Start Docker containers
           command: docker-compose up -d
