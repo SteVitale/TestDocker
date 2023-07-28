@@ -1,0 +1,12 @@
+version: '3'
+services:
+  ubuntu:
+    image: ubuntu-image
+    user: root
+    build:
+      context: .
+      dockerfile: dockerfile
+    container_name: ubuntu-container
+    restart: always
+    command: tail -F anithing
+
