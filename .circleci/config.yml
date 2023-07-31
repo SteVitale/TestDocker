@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  docker: circleci/docker@2.2.0 # Replace x.y.z with the desired version of the Docker orb
+  docker: circleci/docker@2.2.0 
 
 jobs:
   build:
@@ -9,19 +9,12 @@ jobs:
     steps:
       - docker/install-docker
       - checkout
-      #- run:
-          #name: Login to Docker Hub
-          #command: |
-            #echo "$DOCKERHUB_TOKEN" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
       - run:
           name: Start Docker Service
           command: sudo service docker.io start
       - run:
           name: Build Container
           command: sudo docker build -t my-container -f docker-compose.yml .
-      
-
-      
   print-credentials:
     docker:
       - image: cimg/base:stable
