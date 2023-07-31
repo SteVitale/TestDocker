@@ -9,18 +9,31 @@ jobs:
       - setup_remote_docker:
           version: 20.10.14
           docker_layer_caching: true
-      - run: #CREO LE IMMAGINI
+
+      - run: 
           name: BUILD CONTAINER
           command: |
             TAG=0.1.$CIRCLE_BUILD_NUM
             docker-compose build
-      - run: #AVVIO I CONTAINER
+
+      - run:
           name: RUN CONTAINER
           command: docker-compose up -d
-      - run: #STAMPO I CONTAINER
+
+      - run: 
           name: Check Container
           command: docker ps -a
-        
+  Exec:
+    docker:
+      - image: cimg/go:1.17
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 20.10.14
+          docker_layer_caching: true
+      - run:
+          name: Read File Nuovo.txt
+          command: docker exec ubuntu-container cat nuovo.txt
 
       
 workflows:
@@ -28,6 +41,9 @@ workflows:
   build:
     jobs:
       - Build_And_Run
+      - Exec:
+          requires:
+            - Build_And_Run
       
         
       
