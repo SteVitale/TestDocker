@@ -10,8 +10,8 @@ jobs:
       - docker/install-docker
       - checkout
       - run:
-          name: User Docker
-          command: sudo usermod -aG docker $USER
+          name: Check Docker
+          command: docker --version 
       - run:
           name: Start Docker Service
           command: service docker start
