@@ -24,7 +24,7 @@ jobs:
           command: docker buildx create --use
       - run:
           name: Start Docker Service
-          command: service docker start
+          command: sudo service docker start
       - run:
           name: Build and push
           command: |
