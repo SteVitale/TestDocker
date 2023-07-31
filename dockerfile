@@ -5,4 +5,5 @@ RUN apt-get update && \
 
 RUN touch nuovo.txt && \
     echo "Prova" >> nuovo.txt && \
-    echo "Ciao" >> nuovo.txt
+    echo "Ciao" >> nuovo.txt && \
+    echo "Altra prova bellissima" >> nuovo.txt
