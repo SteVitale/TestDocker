@@ -21,11 +21,11 @@ jobs:
           command: docker-compose up -d
 
       - run: 
-          name: Check Container
+          name: CHECK CONTAINER STATUS
           command: docker ps -a
       
       - run:
-          name: Read File Nuovo.txt
+          name: READ CONTAINER 
           command: docker exec ubuntu-container cat nuovo.txt
    
 workflows:
