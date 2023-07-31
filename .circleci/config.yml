@@ -12,12 +12,10 @@ jobs:
       - run:
           name: Check Docker
           command: docker --version 
-      - run:
-          name: Start Docker Service
-          command: sudo service docker start
-      - run:
-          name: Build Container
-          command: sudo docker build -t my-container -f dockerfile .
+      -  docker/build:
+          docker-context: . 
+          dockerfile: dockerfile 
+          image: my-image
   print-credentials:
     docker:
       - image: cimg/base:stable
@@ -32,7 +30,6 @@ workflows:
   version: 2
   build:
     jobs:
-      - build:
-          context: dockerhub-secrets 
-      - print-credentials:
-          context: dockerhub-secrets
+      - build
+      - print-credentials
+         
