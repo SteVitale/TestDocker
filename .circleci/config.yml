@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  docker: circleci/docker@2.2.0 
+  docker: circleci/docker@1.7.0 
 
 jobs:
   build:
@@ -9,9 +9,9 @@ jobs:
     steps:
       - docker/install-docker
       - checkout
-      - run:
-          name: Start Docker Service
-          command: service docker start
+      #- run:
+          #name: Start Docker Service
+          #command: service docker start
       - run:
           name: Build Container
           command: sudo docker build -t my-container -f dockerfile .
