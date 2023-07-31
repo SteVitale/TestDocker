@@ -11,7 +11,7 @@ jobs:
       - checkout
       - run:
           name: Start Service
-          command: sudo service docker start
+          command: sudo systemctl start docker
       - run:
           name: Check Docker
           command: docker --version 
