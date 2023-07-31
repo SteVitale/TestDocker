@@ -5,27 +5,20 @@ orbs:
 jobs:
   build:
     docker:
-      - image: circleci/python:3.8
+      - image: cimg/base:stable
     steps:
-      #- docker/install-docker
-      
+      - docker/install-docker
       - checkout
+      #- run:
+          #name: Login to Docker Hub
+          #command: |
+            #echo "$DOCKERHUB_TOKEN" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+      - run:
+          name: Build Container
+          command: sudo docker build -t my-container -f docker-compose.yml .
+      
 
-      - run:
-          name: Login to Docker Hub
-          command: |
-            echo "$DOCKERHUB_TOKEN" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-
-      - run:
-          name: Set up Docker Buildx
-          command: docker buildx create
-      - run:
-          name: Start Docker Service
-          command: sudo service docker start
-      - run:
-          name: Build and push
-          command: |
-            docker buildx build . --file ./Dockerfile --tag $DOCKERHUB_USERNAME/clockbox:latest --push
+      
   print-credentials:
     docker:
       - image: cimg/base:stable
