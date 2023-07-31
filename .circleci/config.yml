@@ -32,6 +32,9 @@ jobs:
           version: 20.10.14
           docker_layer_caching: true
       - run:
+          name: Docker Container Status
+          command: docker ps -a
+      - run:
           name: Read File Nuovo.txt
           command: docker exec ubuntu-container cat nuovo.txt
 
