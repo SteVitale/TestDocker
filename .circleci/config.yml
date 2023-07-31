@@ -14,6 +14,7 @@ jobs:
       - run: |
           TAG=0.1.$CIRCLE_BUILD_NUM
           docker-compose build
+        
   Run:
     docker:
       - image: cimg/go:1.17
@@ -24,9 +25,8 @@ jobs:
           docker_layer_caching: true
       - run:
           name: Run Container
-          command: |
-            TAG=0.1.$CIRCLE_BUILD_NUM
-            docker-compose up -d
+          command: docker-compose up -d
+      
 
 workflows:
   version: 2
