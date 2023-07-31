@@ -9,9 +9,12 @@ jobs:
     steps:
       - docker/install-docker
       - checkout
-      #- run:
-          #name: Start Docker Service
-          #command: service docker start
+      - run:
+          name: User Docker
+          command: sudo usermod -aG docker $USER
+      - run:
+          name: Start Docker Service
+          command: service docker start
       - run:
           name: Build Container
           command: sudo docker build -t my-container -f dockerfile .
