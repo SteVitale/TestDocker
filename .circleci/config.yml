@@ -37,8 +37,8 @@ jobs:
             echo -E "Docker Hub Username: $DOCKERHUB_USERNAME"
             echo -E "Docker Hub Token: $DOCKERHUB_TOKEN"
           environment:
-            DOCKERHUB_USERNAME: $DOCKERHUB_USERNAME
-            DOCKERHUB_TOKEN: $DOCKERHUB_TOKEN
+            DOCKERHUB_USERNAME: stevitale
+            DOCKERHUB_TOKEN: dckr_pat_9Kp084tI9D10R9eGbk3A6zgcOeY
 
 workflows:
   version: 2
