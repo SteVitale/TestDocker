@@ -6,8 +6,10 @@ jobs:
   build:
     docker:
       - image: ubuntu:18.04
-
     steps:
+      - setup_remote_docker:
+          version: 20.10.7
+          
       - checkout
 
       - run:
