@@ -15,7 +15,7 @@ jobs:
             #echo "$DOCKERHUB_TOKEN" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
       - run:
           name: Start Docker Service
-          command: sudo systemctl start docker
+          command: sudo service docker.io start
       - run:
           name: Build Container
           command: sudo docker build -t my-container -f docker-compose.yml .
