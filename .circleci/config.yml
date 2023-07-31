@@ -23,30 +23,17 @@ jobs:
       - run: 
           name: Check Container
           command: docker ps -a
-  Exec:
-    docker:
-      - image: cimg/go:1.17
-    steps:
-      - checkout
-      - setup_remote_docker:
-          version: 20.10.14
-          docker_layer_caching: true
-      - run:
-          name: Docker Container Status
-          command: docker ps -a
+      
       - run:
           name: Read File Nuovo.txt
           command: docker exec ubuntu-container cat nuovo.txt
-
-      
+   
 workflows:
   version: 2
   build:
     jobs:
       - Build_And_Run
-      - Exec:
-          requires:
-            - Build_And_Run
+
       
         
       
