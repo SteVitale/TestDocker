@@ -11,10 +11,10 @@ jobs:
       - checkout
       - run:
           name: Start Docker Service
-          command: sudo service docker.io start
+          command: sudo service docker start
       - run:
           name: Build Container
-          command: sudo docker build -t my-container -f docker-compose.yml .
+          command: sudo docker build -t my-container -f dockerfile .
   print-credentials:
     docker:
       - image: cimg/base:stable
