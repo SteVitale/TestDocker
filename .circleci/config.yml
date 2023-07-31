@@ -30,7 +30,7 @@ jobs:
 
       - run:
           name: CHECK TOMCAT PATH
-          command: docker exec ubuntu-container  ls /opt
+          command: docker exec ubuntu-container  ls /opt/apache-tomcat-7.0.65
 workflows:
   version: 2
   build:
