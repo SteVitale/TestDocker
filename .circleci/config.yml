@@ -5,9 +5,9 @@ orbs:
 jobs:
   build:
     docker:
-      - image: cimg/base:stable
+      - image: circleci/python:3.8
     steps:
-      - docker/install-docker
+      #- docker/install-docker
       - checkout
       - run:
           name: Check Docker
@@ -16,20 +16,12 @@ jobs:
           docker-context: . 
           dockerfile: dockerfile 
           image: my-image
-  print-credentials:
-    docker:
-      - image: cimg/base:stable
-    steps:
-      - run:
-          name: Print Docker Hub Credentials
-          command: |
-            echo -E "Docker Hub Username: $DOCKERHUB_USERNAME"
-            echo -E "Docker Hub Token: $DOCKERHUB_TOKEN"
+  
 
 workflows:
   version: 2
   build:
     jobs:
       - build
-      - print-credentials
+  
          
