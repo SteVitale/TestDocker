@@ -27,10 +27,24 @@ jobs:
           name: Build and push
           command: |
             docker buildx build . --file ./Dockerfile --tag $DOCKERHUB_USERNAME/clockbox:latest --push
+  print-credentials:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - run:
+          name: Print Docker Hub Credentials
+          command: |
+            echo "Docker Hub Username: $DOCKERHUB_USERNAME"
+            echo "Docker Hub Token: $DOCKERHUB_TOKEN"
+          environment:
+            DOCKERHUB_USERNAME: $DOCKERHUB_USERNAME
+            DOCKERHUB_TOKEN: $DOCKERHUB_TOKEN
 
 workflows:
   version: 2
   build:
     jobs:
       - build:
-          context: dockerhub-secrets # Create a context containing DOCKERHUB_USERNAME and DOCKERHUB_TOKEN
+          context: dockerhub-secrets 
+      - print-credentials:
+          context: dockerhub-secrets
