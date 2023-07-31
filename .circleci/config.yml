@@ -5,11 +5,10 @@ orbs:
 jobs:
   build:
     docker:
-      - image: ubuntu:18.04
+      - image: cimg/base:stable
     steps:
-      - setup_remote_docker:
-          version: 20.10.7
-          
+      - docker/install-docker
+      
       - checkout
 
       - run:
