@@ -26,8 +26,10 @@ jobs:
       - run:
           name: Run Container
           command: docker-compose up -d
+      - run:
+          name: Check Container
+          command: docker ps -a
       
-
 workflows:
   version: 2
   build:
