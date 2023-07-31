@@ -5,9 +5,9 @@ orbs:
 jobs:
   build:
     docker:
-      - image: cimg/base:stable
+      - image: circleci/python:3.8
     steps:
-      - docker/install-docker
+      #- docker/install-docker
       
       - checkout
 
