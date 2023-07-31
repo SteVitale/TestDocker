@@ -1,33 +1,32 @@
 version: 2.1
+orbs:
+  docker: circleci/docker@2.2.0 # Replace x.y.z with the desired version of the Docker orb
+
 jobs:
   build:
     docker:
-      - image: circleci/cci-demo-docker-primary:0.0.2
-    working_directory: /go/src/github.com/SteVitale/TestDocker
+      - image: ubuntu:18.04
+
     steps:
       - checkout
-      - run:
-          name: Install Docker client
-          command: |
-            set -x
-            VER="17.03.0-ce"
-            curl -L -o /tmp/docker-$VER.tgz https://get.docker.com/builds/Linux/x86_64/docker-$VER.tgz
-            tar -xz -C /tmp -f /tmp/docker-$VER.tgz
-            mv /tmp/docker/* /usr/bin
-      - run:
-          name: Install Docker Compose
-          command: |
-            set -x
-            curl -L https://github.com/docker/compose/releases/download/1.11.2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
-            chmod +x /usr/local/bin/docker-compose
-      - run:
-          name: Build service
-          command: make
 
       - run:
-          name: Start container and verify it's working
+          name: Login to Docker Hub
           command: |
-            set -x
-            docker-compose up -d
+            echo "$DOCKERHUB_TOKEN" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
 
-      
+      - run:
+          name: Set up Docker Buildx
+          command: docker buildx create --use
+
+      - run:
+          name: Build and push
+          command: |
+            docker buildx build . --file ./Dockerfile --tag $DOCKERHUB_USERNAME/clockbox:latest --push
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build:
+          context: dockerhub-secrets # Create a context containing DOCKERHUB_USERNAME and DOCKERHUB_TOKEN
