@@ -9,6 +9,6 @@ services:
     container_name: ubuntu-container
     restart: always
     command: tail -F anithing
-    port:
+    ports:
       - "8081:8080"
 
