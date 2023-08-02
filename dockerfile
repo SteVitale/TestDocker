@@ -6,7 +6,7 @@ RUN apt-get update && \
 RUN touch nuovo.txt && \
     echo "Prova" >> nuovo.txt && \
     echo "Ciao" >> nuovo.txt && \
-    echo "Altra prova bellissima" >> nuovo.txt
+    echo "Altra prova bellissima" >> nuovo.txt && \
     echo "aaaa" >> nuovo.txt
 
 RUN wget https://archive.apache.org/dist/tomcat/tomcat-7/v7.0.65/bin/apache-tomcat-7.0.65.tar.gz && \
