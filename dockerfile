@@ -1,8 +1,9 @@
 FROM ubuntu:18.04
 
 RUN apt-get update && \
-    apt-get install -y nano wget
+    apt-get install -y nano wget openjdk-11-jdk
 
+ENV JAVA_HOME /usr/lib/jvm/java-1.11.0-openjdk
 RUN touch nuovo.txt && \
     echo "Prova" >> nuovo.txt && \
     echo "Ciao" >> nuovo.txt && \
