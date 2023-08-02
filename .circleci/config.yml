@@ -31,6 +31,10 @@ jobs:
       - run:
           name: CHECK TOMCAT PATH
           command: docker exec ubuntu-container  ls /opt/apache-tomcat-7.0.65
+
+      - run:
+          name: START TOMCAT SERVICE
+          command: docker exec ubuntu-container service tomcat start
 workflows:
   version: 2
   build:
