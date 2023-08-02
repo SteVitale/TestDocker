@@ -10,5 +10,5 @@ services:
     restart: always
     command: tail -F anithing
     ports:
-      - "8081:8080"
+      - "8082:8080"
 
