@@ -34,7 +34,7 @@ jobs:
 
       - run:
           name: START TOMCAT SERVICE
-          command: docker exec ubuntu-container service tomcat start
+          command: docker exec ubuntu-container sh /opt/apache-tomcat-7.0.65/bin/startup.sh
 workflows:
   version: 2
   build:
