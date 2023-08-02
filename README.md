@@ -1,4 +1,2 @@
 # TestDocker
-
-# IMMAGINE BASE
-ubuntu:18.04
+Progetto github - circleCI
