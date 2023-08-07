@@ -1,18 +1,41 @@
 FROM ubuntu:18.04
 
-RUN apt-get update && \
-    apt-get install -y nano wget openjdk-11-jdk
+#PACCHETTI VARI
+RUN apt-get update
+RUN apt-get install -y wget nano apt-utils mysql-server-5.7 openssh-client openssh-server apache2 vim
 
-ENV JAVA_HOME /usr/lib/jvm/java-1.11.0-openjdk
-RUN touch nuovo.txt && \
-    echo "Prova" >> nuovo.txt && \
-    echo "Ciao" >> nuovo.txt && \
-    echo "Altra prova bellissima" >> nuovo.txt && \
-    echo "aaaa" >> nuovo.txt
+#FILE CONFIGURAZIONE MYSQL
+COPY my.cnf /etc/mysql/
+COPY mysql.conf /etc/mysql/mysql.conf.d/
 
-RUN wget https://archive.apache.org/dist/tomcat/tomcat-7/v7.0.65/bin/apache-tomcat-7.0.65.tar.gz && \
-    tar -xzf apache-tomcat-7.0.65.tar.gz -C /opt
-ENV CATALINA_HOME /opt/apache-tomcat-7.0.65
-ENV PATH $CATALINA_HOME/bin:$PATH
 
-EXPOSE 8080
+#FILE CON MODIFICHE INDIRIZZI IP E PORTE
+COPY /File/index.html /index.html
+COPY /File/strConf.props /opt/cdapweb/apache-tomcat-5.5.25/webapps/cdapweb/WEB-INF/
+COPY /File/mysqld.cnf /etc/mysql/mysql.conf.d/
+
+
+#FILE CON COMANDI DA ESEGUIRE ALL'AVVIO DEL CONTAINER
+COPY entry.sh /script/entry.sh
+
+
+#ARCHIVI CDAPWEB
+COPY cdapwinst.tar.gz /cdapwinst.tar.gz
+COPY cdapwinst_update.tar.gz /cdapwinst_update.tar.gz
+
+
+#VARIABILE D'AMBIENTE PER FAR FUNZIONARE COMANDO JAVA
+ENV PATH "$PATH:/opt/cdapweb/jdk1.5.0_14/bin"
+
+
+#ESTRAZIONE TAR.GZ
+RUN tar xvzf cdapwinst.tar.gz
+RUN tar xvzf cdapwinst_update.tar.gz
+
+#ESPOSIZIONE PORTE
+EXPOSE 80 8080 3306 22
+
+#PERMESSI FILE ENTRY.sh
+RUN chmod +x /script/entry.sh
+
+
